@@ -2,19 +2,17 @@ import { useState, useEffect } from "react";
 
 const Countdown = ({ expiryDate }) => {
   const [timeLeftText, setTimeLeftText] = useState("");
-  const [intervalId, setIntervalId] = useState(); // cancelId
+  const [intervalId, setIntervalId] = useState();
 
   useEffect(() => {
     calculateTimeLeft();
 
-    // cancelId = setInterval(updateTimer, 1000 / 60)
     const intervalId = setInterval(() => {
       calculateTimeLeft();
     }, 1000);
 
     setIntervalId(intervalId);
 
-    //  clearInterval(cancelId);
     return () => {
       clearInterval(intervalId);
     };
@@ -23,11 +21,6 @@ const Countdown = ({ expiryDate }) => {
   function calculateTimeLeft() {
     const millisLeft = expiryDate - Date.now();
 
-    // if (millisLeft < 0) {
-    //     millisLeft = 0;
-    //     clearInterval(cancelId);
-    //     cancelId = null
-    //   }
     if (millisLeft < 0) {
       clearInterval(intervalId);
       setTimeLeftText("EXPIRED");

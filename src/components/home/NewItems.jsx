@@ -5,8 +5,6 @@ import OwlCarousel from "react-owl-carousel";
 import Skeleton from "../UI/Skeleton";
 import Countdown from "../Countdown";
 
-// implement countdowntimer --> NFT bidding session
-
 const NewItems = () => {
   const [newItems, setNewItems] = useState([]);
   const options = {
@@ -31,8 +29,6 @@ const NewItems = () => {
   useEffect(() => {
     getNewItemsData();
   }, []);
-
-  console.log(newItems);
 
   return (
     <section id="section-items" className="no-bottom">
@@ -105,7 +101,7 @@ const NewItems = () => {
                     <Link to={`/item-details/${newItem.nftId}`}>
                       <h4>{newItem.title}</h4>
                     </Link>
-                    <div className="nft__item_price">{newItem.price}</div>
+                    <div className="nft__item_price">{newItem.price} ETH</div>
                     <div className="nft__item_like">
                       <i className="fa fa-heart"></i>
                       <span>{newItem.likes}</span>
@@ -170,14 +166,10 @@ const NewItems = () => {
                       <Link to={``}>
                         <Skeleton width="180px" height="30px" />
                       </Link>
-                      <div className="nft__item_price">
-                        <Skeleton width="100px" height="20px" />
-                      </div>
-                      <div className="nft__item_like">
-                        <span>
-                          <Skeleton width="30px" height="15px" />
-                        </span>
-                      </div>
+                      <Skeleton width="100px" height="20px" />
+                    </div>
+                    <div className="nft__item_like">
+                      <Skeleton width="30px" height="15px" />
                     </div>
                   </div>
                 ))}
