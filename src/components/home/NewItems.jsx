@@ -3,10 +3,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import OwlCarousel from "react-owl-carousel";
 import Skeleton from "../UI/Skeleton";
-import Countdown from "../Countdown";
+import Card from "../Card";
 
 const NewItems = () => {
-  const [newItems, setNewItems] = useState([]);
+  const [items, setItems] = useState([]);
   const options = {
     loop: true,
     margin: 10,
@@ -19,15 +19,15 @@ const NewItems = () => {
     },
   };
 
-  const getNewItemsData = async () => {
+  const getItems = async () => {
     const { data } = await axios.get(
       "https://us-central1-nft-cloud-functions.cloudfunctions.net/newItems"
     );
-    setNewItems(data);
+    setItems(data);
   };
 
   useEffect(() => {
-    getNewItemsData();
+    getItems();
   }, []);
 
   return (
@@ -41,73 +41,10 @@ const NewItems = () => {
             </div>
           </div>
 
-          {newItems.length ? (
+          {items.length ? (
             <OwlCarousel {...options}>
-              {newItems.map((newItem) => (
-                <div className="nft__item" key={newItem.id}>
-                  <div className="author_list_pp">
-                    <Link
-                      to={`/author/${newItem.authorId}`}
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      title="Creator: Monica Lucas"
-                    >
-                      <img className="lazy" src={newItem.authorImage} alt="" />
-                      <i className="fa fa-check"></i>
-                    </Link>
-                  </div>
-                  {newItem.expiryDate && (
-                    <div className="de_countdown">
-                      <Countdown expiryDate={newItem.expiryDate} />
-                    </div>
-                  )}
-
-                  <div className="nft__item_wrap">
-                    <div className="nft__item_extra">
-                      <div className="nft__item_buttons">
-                        <button>Buy Now</button>
-                        <div className="nft__item_share">
-                          <h4>Share</h4>
-                          <a
-                            href="https://www.facebook.com/sharer/sharer.php?u=https://gigaland.io"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fa fa-facebook fa-lg"></i>
-                          </a>
-                          <a
-                            href="https://twitter.com/intent/tweet?url=https://gigaland.io"
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            <i className="fa fa-twitter fa-lg"></i>
-                          </a>
-                          <a href="mailto:?subject=I wanted you to see this site&amp;body=Check out this site https://gigaland.io">
-                            <i className="fa fa-envelope fa-lg"></i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <Link to={`/item-details/${newItem.nftId}`}>
-                      <img
-                        src={newItem.nftImage}
-                        className="lazy nft__item_preview"
-                        alt=""
-                      />
-                    </Link>
-                  </div>
-                  <div className="nft__item_info">
-                    <Link to={`/item-details/${newItem.nftId}`}>
-                      <h4>{newItem.title}</h4>
-                    </Link>
-                    <div className="nft__item_price">{newItem.price} ETH</div>
-                    <div className="nft__item_like">
-                      <i className="fa fa-heart"></i>
-                      <span>{newItem.likes}</span>
-                    </div>
-                  </div>
-                </div>
+              {items.map((item) => (
+                <Card key={item.id} item={item} />
               ))}
             </OwlCarousel>
           ) : (
