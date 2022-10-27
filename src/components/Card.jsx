@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Countdown from "./Countdown";
 
-function Card({ item, responsiveStyling }) {
+function Card({ item, responsiveStyling, authorImage }) {
   return (
     <div
       className={`d-item ${responsiveStyling}`}
@@ -13,9 +13,13 @@ function Card({ item, responsiveStyling }) {
             to={`/author/${item.authorId}`}
             data-bs-toggle="tooltip"
             data-bs-placement="top"
-            title="Creator: Monica Lucas"
+            title={`Creator: ${item.authorName}`}
           >
-            <img className="lazy" src={item.authorImage} alt="" />
+            <img
+              className="lazy"
+              src={item.authorImage || authorImage}
+              alt=""
+            />
             <i className="fa fa-check"></i>
           </Link>
         </div>
