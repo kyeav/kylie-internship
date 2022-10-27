@@ -74,6 +74,7 @@ const ExploreItems = () => {
             onClick={() => setItemsCount(itemsCount + 4)}
             to=""
             id="loadmore"
+            data-aos="fade-up"
             className="btn-main lead"
           >
             Load more
