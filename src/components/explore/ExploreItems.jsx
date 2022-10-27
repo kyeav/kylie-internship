@@ -29,6 +29,18 @@ const ExploreItems = () => {
     getItems();
   }, []);
 
+  const skeletonLoading = new Array(8).fill(0).map((_, index) => (
+    <div
+      key={index}
+      className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
+      style={{ display: "block", backgroundSize: "cover" }}
+    >
+      <div className="nft__item">
+        <Skeleton width="100%" height="400px" />
+      </div>
+    </div>
+  ));
+
   return (
     <>
       <div>
@@ -54,17 +66,7 @@ const ExploreItems = () => {
                 responsiveStyling={"col-lg-3 col-md-6 col-sm-6 col-xs-12"}
               />
             ))
-        : new Array(8).fill(0).map((_, index) => (
-            <div
-              key={index}
-              className="d-item col-lg-3 col-md-6 col-sm-6 col-xs-12"
-              style={{ display: "block", backgroundSize: "cover" }}
-            >
-              <div className="nft__item">
-                <Skeleton width="100%" height="400px" />
-              </div>
-            </div>
-          ))}
+        : skeletonLoading}
 
       <div className="col-md-12 text-center">
         {itemsCount !== 16 && (
