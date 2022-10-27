@@ -27,7 +27,7 @@ const TopSellers = () => {
               <div className="small-border bg-color-2"></div>
             </div>
           </div>
-          <div className="col-md-12">
+          <div data-aos="fade-in" className="col-md-12">
             {topSellers.length ? (
               <ol className="author_list">
                 {topSellers.map((seller) => (
